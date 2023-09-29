@@ -218,6 +218,10 @@ Smallest time the calendar can zoom to in milliseconds. Default `60 * 60 * 1000`
 
 Largest time the calendar can zoom to in milliseconds. Default `5 * 365.24 * 86400 * 1000` (5 years)
 
+## zoom
+
+The zoom of the calendar in milliseconds. This will make the zoom controlled. `maxZoom` and `minZoom` will have no effect when this is set.
+
 ## clickTolerance
 
 How many pixels we can drag the background for it to be counted as a click on the background. Default `3`
