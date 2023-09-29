@@ -345,11 +345,11 @@ export default class ReactCalendarTimeline extends Component {
     const forceUpdate =
       items !== prevState.items ||
       groups !== prevState.groups ||
-      zoom !== oldZoom
+      (zoom && zoom !== oldZoom)
 
     const oldZoom = prevState.visibleTimeEnd - prevState.visibleTimeStart
 
-    if (zoom !== oldZoom) {
+    if (zoom && zoom !== oldZoom) {
       const zoomDiff = oldZoom - zoom
       const newVisibleTimeStart = Math.round(
         prevState.visibleTimeStart + zoomDiff * 0.5
