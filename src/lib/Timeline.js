@@ -93,6 +93,7 @@ export default class ReactCalendarTimeline extends Component {
     }),
     headerRef: PropTypes.func,
     scrollRef: PropTypes.func,
+    groupRef: PropTypes.func,
 
     timeSteps: PropTypes.shape({
       second: PropTypes.number,
@@ -177,6 +178,7 @@ export default class ReactCalendarTimeline extends Component {
     timeSteps: defaultTimeSteps,
     headerRef: () => {},
     scrollRef: () => {},
+    groupRef: () => {},
 
     // if you pass in visibleTimeStart and visibleTimeEnd, you must also pass onTimeChange(visibleTimeStart, visibleTimeEnd),
     // which needs to update the props visibleTimeStart and visibleTimeEnd to the ones passed
@@ -858,6 +860,7 @@ export default class ReactCalendarTimeline extends Component {
           width={sidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     )
@@ -875,6 +878,7 @@ export default class ReactCalendarTimeline extends Component {
           width={rightSidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     )
