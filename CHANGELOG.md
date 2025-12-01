@@ -7,6 +7,13 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 
 ## Unreleased
 
+## 0.30.0
+
+* Add `zoom` prop for controlling the calendar zoom
+
+## 0.29.0
+
+* Fix an issue where the canvas would redraw way too often, disregarding the `buffer`.
 
 ## 0.30.0 (beta.4)
 
@@ -37,7 +44,6 @@ Huge update made by @Remco4EF and @remcoblumink
 * fix Context Menu unintentionally disabled by default @dsgipe #769
 * delete props `headerLabelFormats` and `subHeaderLabelFormats` not you can pass `formatLabel` function to `DateHeader` with label width and start and end time of intervals
 
-
 ## 0.26.7
 
 * fix scrolling with trackpad @ilaiwi #679
@@ -66,8 +72,8 @@ Using controlled scroll and react-spring to trigger scrolling and create an anim
 ## 0.26.5
 
 * improve performance by:
-  - eliminate extra call of layout on state update @ilaiwi
-  - eliminate unmounting and mounting of Interval Component @ilaiwi
+  * eliminate extra call of layout on state update @ilaiwi
+  * eliminate unmounting and mounting of Interval Component @ilaiwi
 
 ## 0.26.4
 
@@ -115,7 +121,6 @@ you can as well solve the issue without upgrading by adding the following style
 #### Breaking
 
 * Removed `<InfoLabel />` in favour of allowing for custom component to be rendered on move or resize. Check out the demo in `demo/app/demo-custom-info-label` for an example on how to display your own custom info label or [this example](https://codesandbox.io/s/timeline-demo-info-label-neec9).
-
 
 ## 0.25.4
 

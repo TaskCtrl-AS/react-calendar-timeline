@@ -23,7 +23,7 @@ Latest release includes:
 We're excited to announce the beta release of v0.30.0 which includes:
 - Full TypeScript rewrite
 - Vite as bundler
-- Updated dependencies to latest versions 
+- Updated dependencies to latest versions
 - React 18+ support
 
 The beta version is available via:
