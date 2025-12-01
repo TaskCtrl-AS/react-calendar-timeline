@@ -57,6 +57,11 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 * Add CI workflow for linting and building on Node.js 22 (tests skipped until migrated to TypeScript).
 * Switch npm release workflow to OIDC Trusted Publishing with provenance attestation (no `NPM_TOKEN` required).
 
+## TaskCtrl additions
+
+* Add `zoom` prop for controlling the calendar zoom
+* Add `groupRef` prop for getting a reference to the sidebar element
+
 ## 0.30.0 (beta.4)
 
 * Fix issue where the redraw mechanism was not based on the `buffer` prop.
@@ -86,7 +91,6 @@ Huge update made by @Remco4EF and @remcoblumink
 * fix Context Menu unintentionally disabled by default @dsgipe #769
 * delete props `headerLabelFormats` and `subHeaderLabelFormats` not you can pass `formatLabel` function to `DateHeader` with label width and start and end time of intervals
 
-
 ## 0.26.7
 
 * fix scrolling with trackpad @ilaiwi #679
@@ -115,8 +119,8 @@ Using controlled scroll and react-spring to trigger scrolling and create an anim
 ## 0.26.5
 
 * improve performance by:
-  - eliminate extra call of layout on state update @ilaiwi
-  - eliminate unmounting and mounting of Interval Component @ilaiwi
+  * eliminate extra call of layout on state update @ilaiwi
+  * eliminate unmounting and mounting of Interval Component @ilaiwi
 
 ## 0.26.4
 
@@ -164,7 +168,6 @@ you can as well solve the issue without upgrading by adding the following style
 #### Breaking
 
 * Removed `<InfoLabel />` in favour of allowing for custom component to be rendered on move or resize. Check out the demo in `demo/app/demo-custom-info-label` for an example on how to display your own custom info label or [this example](https://codesandbox.io/s/timeline-demo-info-label-neec9).
-
 
 ## 0.25.4
 

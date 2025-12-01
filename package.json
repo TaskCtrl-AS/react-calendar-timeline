@@ -1,13 +1,12 @@
 {
-  "name": "react-calendar-timeline",
+  "name": "@taskctrl/react-calendar-timeline",
   "version": "0.30.0-beta.18",
   "description": "react-calendar-timeline",
-  "packageManager": "npm@10.1.0",
   "scripts": {
-    "build": "npm run clean && tsc && vite build",
+    "build": "yarn run clean && tsc && vite build",
     "clean": "rimraf ./dist",
     "lint": "eslint --ext .ts --ext .tsx ./src",
-    "lint:fix": "npm run lint --fix",
+    "lint:fix": "yarn run lint --fix",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
@@ -34,14 +33,17 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/namespace-ee/react-calendar-timeline",
+  "homepage": "https://github.com/TaskCtrl-AS/react-calendar-timeline",
   "repository": {
     "type": "git",
-    "url": "https://github.com/namespace-ee/react-calendar-timeline.git"
+    "url": "https://github.com/TaskCtrl-AS/react-calendar-timeline.git"
   },
-  "private": false,
-  "author": "Marius Andra <marius.andra@gmail.com>",
+  "author": "TaskCtrl AS",
   "contributors": [
+    {
+      "name": "Marius Andra",
+      "email": "marius.andra@gmail.com"
+    },
     {
       "name": "Stanisław Chmiela",
       "email": "sjchmiela@gmail.com"

@@ -11,6 +11,7 @@ type Props<CustomGroup extends TimelineGroupBase = TimelineGroupBase> = {
   keys: TimelineKeys;
   groupRenderer?: (props: ReactCalendarGroupRendererProps<CustomGroup>) => React.ReactNode;
   isRightSidebar?: boolean;
+  groupRef?: (el: HTMLDivElement) => void;
 };
 
 export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGroupBase> extends Component<
@@ -43,7 +44,7 @@ export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGro
   }
 
   render() {
-    const { width, groupHeights, height, isRightSidebar } = this.props;
+    const { width, groupHeights, height, isRightSidebar, groupRef } = this.props;
 
     const { groupIdKey, groupTitleKey, groupRightTitleKey } = this.props.keys;
 
@@ -74,7 +75,7 @@ export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGro
     });
 
     return (
-      <div className={"rct-sidebar" + (isRightSidebar ? " rct-sidebar-right" : "")} style={sidebarStyle}>
+      <div className={"rct-sidebar" + (isRightSidebar ? " rct-sidebar-right" : "")} style={sidebarStyle} ref={groupRef}>
         <div style={groupsStyle}>{groupLines}</div>
       </div>
     );

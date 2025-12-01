@@ -96,6 +96,7 @@ export type ReactCalendarTimelineProps<
   itemVerticalGap?: number | undefined;
   minZoom: number;
   maxZoom: number;
+  zoom?: number;
   clickTolerance?: number | undefined;
   canMove?: boolean | undefined;
   canChangeGroup?: boolean | undefined;
@@ -129,6 +130,7 @@ export type ReactCalendarTimelineProps<
   buffer?: number;
   // Fields that are in propTypes but not documented
   headerRef?: (el: HTMLDivElement) => void;
+  groupRef?: (el: HTMLDivElement) => void;
   className?: string;
   style?: React.CSSProperties;
   ref?: React.Ref<ReactCalendarTimelineRef>;
@@ -221,6 +223,7 @@ export default class ReactCalendarTimeline<
     timeSteps: defaultTimeSteps,
     headerRef: () => {},
     scrollRef: () => {},
+    groupRef: () => {},
 
     // if you pass in visibleTimeStart and visibleTimeEnd, you must also pass onTimeChange(visibleTimeStart, visibleTimeEnd),
     // which needs to update the props visibleTimeStart and visibleTimeEnd to the ones passed
@@ -351,14 +354,25 @@ export default class ReactCalendarTimeline<
     nextProps: ReactCalendarTimelineProps<TimelineItemBase<number>>,
     prevState: ReactCalendarTimelineState
   ) {
-    const { visibleTimeStart, visibleTimeEnd, items, groups } = nextProps;
+    const { visibleTimeStart, visibleTimeEnd, items, groups, zoom } = nextProps;
 
     // This is a gross hack pushing items and groups in to state only to allow
     // For the forceUpdate check
     const derivedState = { items, groups };
 
     // if the items or groups have changed we must re-render
-    const forceUpdate = items !== prevState.items || groups !== prevState.groups;
+    const oldZoom = prevState.visibleTimeEnd - prevState.visibleTimeStart;
+    const forceUpdate = items !== prevState.items || groups !== prevState.groups || (zoom && zoom !== oldZoom);
+
+    if (zoom && zoom !== oldZoom) {
+      const zoomDiff = oldZoom - zoom;
+      const newVisibleTimeStart = Math.round(prevState.visibleTimeStart + zoomDiff * 0.5);
+
+      Object.assign(
+        derivedState,
+        calculateScrollCanvas(newVisibleTimeStart, newVisibleTimeStart + zoom, forceUpdate, items, groups, nextProps, prevState)
+      );
+    }
 
     // We are a controlled component
     if (visibleTimeStart && visibleTimeEnd) {
@@ -504,6 +518,10 @@ export default class ReactCalendarTimeline<
   };
 
   changeZoom = (scale: number, offset = 0.5) => {
+    // Zoom is controlled
+    if (this.props.zoom) {
+      return;
+    }
     const { minZoom, maxZoom } = this.props;
     const oldZoom = this.state.visibleTimeEnd - this.state.visibleTimeStart;
     const newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom); // min 1 min, max 20 years
@@ -827,6 +845,7 @@ export default class ReactCalendarTimeline<
           width={sidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     );
@@ -844,6 +863,7 @@ export default class ReactCalendarTimeline<
           width={rightSidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     );
