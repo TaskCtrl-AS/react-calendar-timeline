@@ -96,7 +96,7 @@
     "memoize-one": "^6.0.0"
   },
   "peerDependencies": {
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.20",
     "interactjs": "1.10.27",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
@@ -104,8 +104,9 @@
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
     "@rollup/plugin-typescript": "^12.1.0",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
+    "@testing-library/react": "^16.3.2",
     "@types/jsdom": "^28.0.0",
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.41",
@@ -116,6 +117,7 @@
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/eslint-plugin": "^1.6.9",
     "cross-env": "^7.0.3",
+    "dayjs": "^1.11.20",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -124,12 +126,14 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^9.1.7",
-    "interactjs": "1.10.27",
+    "interactjs": "^1.10.27",
     "jsdom": "^25.0.1",
     "lint-staged": "^16.3.1",
     "prettier": "^3.1.0",
     "prettier-eslint-cli": "^8.0.1",
     "randomcolor": "^0.6.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "rimraf": "^6.0.1",
     "rollup-plugin-typescript-paths": "^1.5.0",
     "sass": "^1.69.5",

@@ -362,7 +362,7 @@ export default class ReactCalendarTimeline<
 
     // if the items or groups have changed we must re-render
     const oldZoom = prevState.visibleTimeEnd - prevState.visibleTimeStart;
-    const forceUpdate = items !== prevState.items || groups !== prevState.groups || (zoom && zoom !== oldZoom);
+    const forceUpdate = items !== prevState.items || groups !== prevState.groups || !!(zoom && zoom !== oldZoom);
 
     if (zoom && zoom !== oldZoom) {
       const zoomDiff = oldZoom - zoom;
@@ -370,7 +370,15 @@ export default class ReactCalendarTimeline<
 
       Object.assign(
         derivedState,
-        calculateScrollCanvas(newVisibleTimeStart, newVisibleTimeStart + zoom, forceUpdate, items, groups, nextProps, prevState)
+        calculateScrollCanvas(
+          newVisibleTimeStart,
+          newVisibleTimeStart + zoom,
+          forceUpdate,
+          items,
+          groups,
+          nextProps,
+          prevState
+        )
       );
     }
 
