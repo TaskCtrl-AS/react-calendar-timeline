@@ -7,13 +7,55 @@ and this project adheres (more or less) to [Semantic Versioning](http://semver.o
 
 ## Unreleased
 
-## 0.30.0
+## 0.30.0 (beta.18)
 
-* Add `zoom` prop for controlling the calendar zoom
+* Migrate test suite from Jest/Enzyme to Vitest + React Testing Library.
+* Convert all test files from JavaScript to TypeScript with full type coverage.
+* Add comprehensive test coverage for all major components and utilities, converting remaining placeholder tests to real implementations.
+* Fix all TypeScript errors across test files and fixtures; remove unnecessary `any` types from source files.
+* Separate `tsconfig.json` (build) from `tsconfig.test.json` (test type-checking); add `__tests__/tsconfig.json` for VS Code language service path alias resolution.
+* Set up Prettier with a pre-commit hook (`lint-staged`) and reformat the entire codebase.
+* Add `@vitest/eslint-plugin` for test file globals; switch to ESLint legacy-recommended config for v8 compatibility; remove Jest ESLint plugin.
+* Add test coverage reporting to CI; update CI workflow to run Vitest.
 
-## 0.29.0
+## 0.30.0 (beta.17)
 
-* Fix an issue where the canvas would redraw way too often, disregarding the `buffer`.
+* Fix vertical page scroll being hijacked by horizontal timeline panning on trackpads
+
+## 0.30.0 (beta.16)
+
+* Fix timeline markers (TodayMarker, CursorMarker, CustomMarker) becoming invisible after the CSS transform scroll change. The inner transform wrapper had 0 height because MarkerCanvas is `position: absolute`, causing all markers with `top:0; bottom:0` to collapse.
+
+## 0.30.0 (beta.15)
+
+* Fix Safari trackpad scroll jank by replacing native `scrollLeft` with CSS `transform: translateX()` so the browser never owns the scroll position. Eliminates the feedback loop where Safari's momentum engine fights programmatic `scrollLeft` writes in `componentDidUpdate`.
+* Batch scroll events via `requestAnimationFrame` to coalesce multiple wheel/pointer events into a single `onScroll` → `onTimeChange` → canvas recalculation cycle per frame, reducing redundant `onBoundsChange` calls.
+* Compute `scrollOffset` once per render instead of calling `getScrollOffset()` multiple times.
+
+## 0.30.0 (beta.14)
+
+* Fix stale `itemContext.title` in custom `itemRenderer` — replaced mutable cache (`cacheDataFromProps`) with getters that derive values directly from current props. Closes #1014.
+* Add `advancedFormat` dayjs plugin to restore support for ordinal date tokens (`Do`, `Q`, `k`, etc.) lost in the Moment.js → Day.js migration. Closes #1011.
+* Fix `getItemProps` silently dropping custom event handlers (`onClick`, `onMouseEnter`, `onMouseLeave`, etc.) and HTML attributes (`data-*`, `aria-*`) passed by custom `itemRenderer`. Unhandled props are now forwarded via rest spread. Closes #970.
+* Remove blanket `preventDefault()` from `composeEvents` — internal handlers already call it conditionally where needed.
+* Fix crash in `getSumScroll` when a node has no `parentNode` before reaching `document.body`.
+* Fix incorrect zoom scale calculation in `handleWheelZoom` — zoom in and zoom out are now symmetric, preventing over-zooming on ctrl+scroll especially at higher speeds.
+* Fix timeline panning triggering when clicking or dragging a selected item. Native `pointerdown`/`pointerup` listeners on the item element now set `isItemInteraction` synchronously before `ScrollElement`'s handler runs, eliminating the race condition with interact.js `dragstart`.
+* Normalize wheel event delta values across browsers and platforms to fix excessive scrolling/zooming with trackpads on some systems. Handles different `deltaMode` values (PIXEL/LINE/PAGE) and clamps to ±120px for consistent behavior. Closes #929, addresses #975.
+
+## 0.30.0 (beta.13)
+
+* Upgrade resize detection to native `ResizeObserver` with `borderBoxSize` reading and `contentRect` fallback, replacing the window-only resize listener. Detects both window and container-level width changes.
+* Add SSR / jsdom guard with automatic fallback to window resize event.
+* Add `Math.round()` on dimensions and early bail-out when width is unchanged to prevent sub-pixel jitter and unnecessary re-renders.
+* Remove legacy `element-resize-detector` dependency, `resizeDetector` prop, and `container` resize detector module — all superseded by native `ResizeObserver`.
+
+## 0.30.0 (beta.12)
+
+* Fix `vite.config.mts` reference in `tsconfig.node.json`.
+* Add automated npm release via GitHub Actions on git tag push (`v*`), with support for beta/alpha/rc dist-tags.
+* Add CI workflow for linting and building on Node.js 22 (tests skipped until migrated to TypeScript).
+* Switch npm release workflow to OIDC Trusted Publishing with provenance attestation (no `NPM_TOKEN` required).
 
 ## 0.30.0 (beta.4)
 
