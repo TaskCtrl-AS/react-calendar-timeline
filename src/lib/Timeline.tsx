@@ -353,14 +353,33 @@ export default class ReactCalendarTimeline<
     nextProps: ReactCalendarTimelineProps<TimelineItemBase<number>>,
     prevState: ReactCalendarTimelineState
   ) {
-    const { visibleTimeStart, visibleTimeEnd, items, groups } = nextProps;
+    const { visibleTimeStart, visibleTimeEnd, items, groups, zoom } = nextProps;
 
     // This is a gross hack pushing items and groups in to state only to allow
     // For the forceUpdate check
     const derivedState = { items, groups };
 
+    const oldZoom = prevState.visibleTimeEnd - prevState.visibleTimeStart;
     // if the items or groups have changed we must re-render
-    const forceUpdate = items !== prevState.items || groups !== prevState.groups;
+    const forceUpdate = items !== prevState.items || groups !== prevState.groups || zoom !== oldZoom;
+
+    if (zoom && zoom !== oldZoom) {
+      const zoomDiff = oldZoom - zoom;
+      const newVisibleTimeStart = Math.round(prevState.visibleTimeStart + zoomDiff * 0.5);
+
+      Object.assign(
+        derivedState,
+        calculateScrollCanvas(
+          newVisibleTimeStart,
+          newVisibleTimeStart + zoom,
+          forceUpdate,
+          items,
+          groups,
+          nextProps,
+          prevState
+        )
+      );
+    }
 
     // We are a controlled component
     if (visibleTimeStart && visibleTimeEnd) {
@@ -506,6 +525,10 @@ export default class ReactCalendarTimeline<
   };
 
   changeZoom = (scale: number, offset = 0.5) => {
+    // Zoom is controlled
+    if (this.props.zoom) {
+      return;
+    }
     const { minZoom, maxZoom } = this.props;
     const oldZoom = this.state.visibleTimeEnd - this.state.visibleTimeStart;
     const newZoom = Math.min(Math.max(Math.round(oldZoom * scale), minZoom), maxZoom); // min 1 min, max 20 years

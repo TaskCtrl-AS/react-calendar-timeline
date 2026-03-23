@@ -1,6 +1,6 @@
 {
-  "name": "react-calendar-timeline",
-  "version": "0.30.0-beta.6",
+  "name": "@taskctrl/react-calendar-timeline",
+  "version": "0.30.0-beta.7",
   "description": "react-calendar-timeline",
   "scripts": {
     "build": "yarn run clean && tsc && vite build",
