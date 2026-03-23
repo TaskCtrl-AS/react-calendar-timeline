@@ -1,27 +1,20 @@
 // TODO: can we use getBoundingClientRect instead??
 // last place this is used is in "handleWheel" in ScrollElement
 export function getParentPosition(element: HTMLElement) {
-  let xPosition = 0
-  let yPosition = 0
-  let first = true
+  let xPosition = 0;
+  let yPosition = 0;
+  let first = true;
 
   while (element) {
-    if (
-      !element.offsetParent &&
-      element.tagName === 'BODY' &&
-      element.scrollLeft === 0 &&
-      element.scrollTop === 0
-    ) {
-      element = document.scrollingElement as HTMLElement || element
+    if (!element.offsetParent && element.tagName === "BODY" && element.scrollLeft === 0 && element.scrollTop === 0) {
+      element = (document.scrollingElement as HTMLElement) || element;
     }
-    xPosition +=
-      element.offsetLeft - (first ? 0 : element.scrollLeft) + element.clientLeft
-    yPosition +=
-      element.offsetTop - (first ? 0 : element.scrollTop) + element.clientTop
-    element = element.offsetParent as HTMLElement
-    first = false
+    xPosition += element.offsetLeft - (first ? 0 : element.scrollLeft) + element.clientLeft;
+    yPosition += element.offsetTop - (first ? 0 : element.scrollTop) + element.clientTop;
+    element = element.offsetParent as HTMLElement;
+    first = false;
   }
-  return { x: xPosition, y: yPosition }
+  return { x: xPosition, y: yPosition };
 }
 
 interface ScrollPosition {
@@ -30,7 +23,7 @@ interface ScrollPosition {
 }
 
 export function getSumScroll(node: HTMLElement): ScrollPosition {
-  if (node === document.body) {
+  if (node === document.body || !node.parentNode) {
     return { scrollLeft: 0, scrollTop: 0 };
   } else {
     const parent = getSumScroll(node.parentNode as HTMLElement);
