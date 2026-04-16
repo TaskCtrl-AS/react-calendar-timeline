@@ -17,6 +17,14 @@ type Props<CustomGroup extends TimelineGroupBase = TimelineGroupBase> = {
 export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGroupBase> extends Component<
   Props<CustomGroup>
 > {
+  private sidebarRef = React.createRef<HTMLDivElement>();
+
+  componentDidMount() {
+    if (this.props.groupRef && this.sidebarRef.current) {
+      this.props.groupRef(this.sidebarRef.current);
+    }
+  }
+
   shouldComponentUpdate(nextProps: Props<CustomGroup>) {
     return !(
       nextProps.keys === this.props.keys &&
@@ -44,7 +52,7 @@ export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGro
   }
 
   render() {
-    const { width, groupHeights, height, isRightSidebar, groupRef } = this.props;
+    const { width, groupHeights, height, isRightSidebar } = this.props;
 
     const { groupIdKey, groupTitleKey, groupRightTitleKey } = this.props.keys;
 
@@ -75,7 +83,11 @@ export default class Sidebar<CustomGroup extends TimelineGroupBase = TimelineGro
     });
 
     return (
-      <div className={"rct-sidebar" + (isRightSidebar ? " rct-sidebar-right" : "")} style={sidebarStyle} ref={groupRef}>
+      <div
+        className={"rct-sidebar" + (isRightSidebar ? " rct-sidebar-right" : "")}
+        style={sidebarStyle}
+        ref={this.sidebarRef}
+      >
         <div style={groupsStyle}>{groupLines}</div>
       </div>
     );
