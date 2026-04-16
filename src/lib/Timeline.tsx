@@ -130,6 +130,7 @@ export type ReactCalendarTimelineProps<
   buffer?: number;
   // Fields that are in propTypes but not documented
   headerRef?: (el: HTMLDivElement) => void;
+  groupRef?: (el: HTMLDivElement) => void;
   className?: string;
   style?: React.CSSProperties;
   ref?: React.Ref<ReactCalendarTimelineRef>;
@@ -852,6 +853,7 @@ export default class ReactCalendarTimeline<
           width={sidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     );
@@ -869,6 +871,7 @@ export default class ReactCalendarTimeline<
           width={rightSidebarWidth}
           groupHeights={groupHeights}
           height={height}
+          groupRef={this.props.groupRef}
         />
       )
     );
