@@ -139,5 +139,10 @@
     "vite-plugin-lib-inject-css": "^2.1.1",
     "vite-plugin-static-copy": "^2.1.0",
     "vitest": "^3.0.0"
+  },
+  "resolutions": {
+    "vite-plugin-dts/**/@vue/shared": "^3.5.40",
+    "vite-plugin-dts/**/ajv": "^8.19.0",
+    "fast-uri": "^3.1.4"
   }
 }
