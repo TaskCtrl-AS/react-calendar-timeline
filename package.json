@@ -140,6 +140,11 @@
     "vite-plugin-static-copy": "^2.1.0",
     "vitest": "^3.0.0"
   },
+  "overrides": {
+    "@vue/shared": "3.5.40",
+    "@vue/compiler-core": "3.5.40",
+    "@vue/compiler-dom": "3.5.40"
+  },
   "resolutions": {
     "vite-plugin-dts/**/@vue/shared": "^3.5.40",
     "vite-plugin-dts/**/ajv": "^8.19.0",
